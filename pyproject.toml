@@ -4,34 +4,20 @@ version = "0.1.0"
 description = ""
 authors = ["imjwang <ngjaywa@gmail.com>"]
 readme = "README.md"
-packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = "^0.115.4"
-langchain = "^0.3.7"
-langgraph = "^0.2.44"
 uvicorn = "^0.32.0"
 python-dotenv = "0.19.0"
 copilotkit = "^0.1.25"
-jupyter = "^1.1.1"
-notebook = "^7.2.2"
-ipykernel = "^6.29.5"
 google-generativeai = "^0.8.3"
 google-cloud-storage = "^2.18.2"
 python-multipart = "^0.0.17"
 
-restack-sdk-cloud = "^1.0.10"
 weave = "^0.51.18"
-restack-ai = "^0.0.21"
-restack-google-gemini = "^0.0.23"
 pydantic = "^2.9.2"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.scripts]
-services = "src.services:run_services"
-schedule = "src.schedule_workflow:run_schedule_workflow"
-app = "src.main:run_app"

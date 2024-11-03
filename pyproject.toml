@@ -17,6 +17,7 @@ python-multipart = "^0.0.17"
 
 weave = "^0.51.18"
 pydantic = "^2.9.2"
+google-cloud-aiplatform = "^1.71.1"
 
 [build-system]
 requires = ["poetry-core"]

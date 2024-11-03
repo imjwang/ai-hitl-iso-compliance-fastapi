@@ -1,7 +1,4 @@
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
-from restack_ai import Restack
-import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import weave
 from src.routers import upload_router
@@ -19,16 +16,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 app.include_router(upload_router)
 
 @weave.op()
 @app.get("/test")
 async def test_route():
     return {"message": "This is a test route"}
-
-def run_app():
-    uvicorn.run("src.app:app", host="0.0.0.0", port=8000, reload=True)
-
-if __name__ == '__main__':
-    run_app()

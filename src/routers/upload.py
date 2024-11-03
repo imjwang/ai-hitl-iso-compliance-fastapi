@@ -47,19 +47,27 @@ async def upload_to_gcp(file: UploadFile, file_type: FileType) -> str:
         raise HTTPException(status_code=500, detail=f"Failed to upload file: {str(e)}")
 
 @router.post("/upload_files/")
-async def upload_files(form: Annotated[str, Form()]):
-    print(form)
-    # files = [file for file in form.files.values()]
-    # if not files:
-    #     raise HTTPException(status_code=400, detail="No files provided")
-    # uploaded_files = []
-    # for file in files:
-    #     # Need to seek to start of file before uploading since it may have been read
-    #     file.file.seek(0)
-    #     result = await upload_to_gcp(file, form.file_type)
-    #     uploaded_files.append(result)
+async def upload_files(
+    file_type: FileType = Form(...),
+    files: List[UploadFile] = File(...)
+):
+    uploaded_files = []
+    for file in files:
+        result = await upload_to_gcp(file, file_type)
+        uploaded_files.append(result)
 
-    return {"detail": "success"}
+    return {"detail": uploaded_files}
+
+@router.get("/list_files/")
+async def list_files():
+    try:
+        bucket = storage_client.bucket(GCP_BUCKET_NAME)
+        blobs = bucket.list_blobs()
+        file_urls = [f"https://storage.googleapis.com/{GCP_BUCKET_NAME}/{blob.name}" for blob in blobs]
+        return {"files": file_urls}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to list files: {str(e)}")
+
 
 @router.get("/list_files/")
 async def list_files():

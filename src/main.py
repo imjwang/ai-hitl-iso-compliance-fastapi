@@ -6,14 +6,14 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import weave
 from src.client import client
-from src.routers import upload
+# from src.routers import upload
 
 origins = ["*"]
 weave.init('jurassic-park')
 
 app = FastAPI()
 
-app.include_router(upload.router)
+# app.include_router(upload.router)
 
 app.add_middleware(
     CORSMiddleware,

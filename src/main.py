@@ -5,7 +5,7 @@ import time
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import weave
-from src.client import client
+# from src.client import client
 # from src.routers import upload
 
 origins = ["*"]

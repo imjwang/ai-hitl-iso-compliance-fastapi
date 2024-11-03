@@ -1,5 +1,10 @@
 FROM python:3.12-slim
 
+# Set environment variables
+ENV GEMINI_API_KEY=${GEMINI_API_KEY}
+ENV RESTACK_SDK_TOKEN=${RESTACK_SDK_TOKEN} 
+ENV WANDB_API_KEY=${WANDB_API_KEY}
+
 # Set the working directory in the container
 WORKDIR /app
 
@@ -20,5 +25,4 @@ COPY . .
 EXPOSE 80
 
 # Run the application
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
-
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "80"]

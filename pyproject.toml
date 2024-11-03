@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "ai-hitl-iso-compliance-fastapi"
+version = "0.1.0"
+description = ""
+authors = ["imjwang <ngjaywa@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.4"
+langchain = "^0.3.7"
+langgraph = "^0.2.44"
+uvicorn = "^0.32.0"
+python-dotenv = "^1.0.1"
+copilotkit = "^0.1.25"
+jupyter = "^1.1.1"
+notebook = "^7.2.2"
+ipykernel = "^6.29.5"
+google-generativeai = "^0.8.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -7,8 +7,8 @@ import json
 
 router = APIRouter()
 
-iso_file_uri = "gs://ait_nov_hackathon/ISOIEC 5055_Software quality measurement.pdf"
-company_doc_uri = "gs://ait_nov_hackathon/tinker/software_process.md"
+iso_file_uri = "https://storage.googleapis.com/ait_nov_hackathon/ISO-29119-The-New-International-Software-Testing-Standards.pdf"
+company_doc_uri = "https://storage.googleapis.com/ait_nov_hackathon/tinker/react.md"
 reg = '<regulation>'
 reg_close = '</regulation>'
 company_doc = '<document>'
@@ -34,13 +34,17 @@ def format_outputs(outputs: str) -> RegulatoryComplianceOutput:
             summary=outputs.split('<summary_compliance>')[-1].split('</summary_compliance>')[0]
         )
 
-# class GenerateRequest(BaseModel):
-#     file_uri: str
-@router.get("/generate")
-def generate_response() -> RegulatoryComplianceOutput:
+class GenerateRequest(BaseModel):
+    iso_uri: str
+    company_doc_uri: str
+
+
+@router.post("/generate")
+def generate_response(item: GenerateRequest) -> RegulatoryComplianceOutput:
     model = GenerativeModel(
     "gemini-1.5-flash",
-    system_instruction='''You will be supplied with a document that forms part of an operational management frameworkYou will be given a relevant governmental regulation that the document needs to address and be compliant with
+    system_instruction='''You will be supplied with a document that forms part of an operational management framework.
+You will be given a relevant governmental regulation that the document needs to address and be compliant with
 
 You ALWAYS follow these guidelines when writing your response:
 <guidelines>
@@ -52,10 +56,15 @@ You ALWAYS follow these guidelines when writing your response:
 - For each of your selections, you provide reasoning to justify your selections.
 </guidelines>
 '''
-)
-    # TODO
-    iso_file_uri = "gs://ait_nov_hackathon/ISOIEC 5055_Software quality measurement.pdf"
-    company_doc_uri = "gs://ait_nov_hackathon/tinker/software_process.md"
+    )
+
+    iso_file_uri = f"gs://ait_nov_hackathon/{item.iso_uri}"
+    company_doc_uri = f"gs://ait_nov_hackathon/tinker/{item.company_doc_uri}"
+    print(iso_file_uri)
+    print(company_doc_uri)
+
+    # iso_file_uri = "https://storage.googleapis.com/ait_nov_hackathon/FileType.ISO/test.pdf"
+    # company_doc_uri = "https://storage.googleapis.com/ait_nov_hackathon/tinker/deployment.md"
 
     iso_file = Part.from_uri(iso_file_uri, mime_type="application/pdf")
     company_file = Part.from_uri(company_doc_uri, mime_type="text/md")

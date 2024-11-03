@@ -29,7 +29,6 @@ service_account_info = {
     "client_x509_cert_url": os.getenv("GCP_CLIENT_X509_CERT_URL"),
     "universe_domain": os.getenv("GCP_UNIVERSE_DOMAIN"),
 }
-print(service_account_info)
 # Create credentials from the service account JSON
 credentials = service_account.Credentials.from_service_account_info(service_account_info)
 

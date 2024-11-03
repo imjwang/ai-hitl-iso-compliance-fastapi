@@ -1,7 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import weave
-from src.routers import upload_router
+from src.routers.upload import router as upload_router
+import uvicorn
 
 origins = ["*"]
 weave.init('jurassic-park')
@@ -22,3 +23,6 @@ app.include_router(upload_router)
 @app.get("/test")
 async def test_route():
     return {"message": "This is a test route"}
+
+if __name__ == "__main__":
+    uvicorn.run("src.main:app", host="0.0.0.0", port=8000, reload=True)

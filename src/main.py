@@ -9,7 +9,7 @@ import weave
 # from src.routers import upload
 
 origins = ["*"]
-weave.init('jurassic-park')
+# weave.init('jurassic-park')
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@weave.op()
+# @weave.op()
 @app.get("/test")
 async def test_route():
     return {"message": "This is a test route"}

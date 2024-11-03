@@ -5,6 +5,7 @@ import time
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import weave
+from src.client import client
 
 
 origins = ["*"]
@@ -31,8 +32,6 @@ class InputParams(BaseModel):
 @weave.op()
 @app.post("/api/schedule")
 async def schedule_workflow(data: InputParams):
-    client = Restack()
-
     workflow_id = f"{int(time.time() * 1000)}-GeminiGenerateWorkflow"
     runId = await client.schedule_workflow(
         workflow_name="GeminiGenerateWorkflow",
@@ -54,8 +53,6 @@ class FeedbackParams(BaseModel):
 @weave.op()
 @app.post("/api/event/feedback")
 async def send_event_feedback(data: FeedbackParams):
-    client = Restack()
-
     await client.send_workflow_event(
         workflow_name="GeminiGenerateWorkflow",
         event_name="feedback",
@@ -66,8 +63,6 @@ async def send_event_feedback(data: FeedbackParams):
 @weave.op()
 @app.post("/api/event/end")
 async def send_event_end():
-    client = Restack()
-
     await client.send_workflow_event(
         workflow_name="GeminiGenerateWorkflow",
         event_name="end"

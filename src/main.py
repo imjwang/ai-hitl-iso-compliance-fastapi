@@ -6,7 +6,7 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 import weave
 from src.client import client
-
+from src.routers import upload
 
 origins = ["*"]
 weave.init('jurassic-park')

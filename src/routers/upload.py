@@ -5,10 +5,6 @@ from enum import Enum
 from typing import List
 from dotenv import load_dotenv
 load_dotenv()
-
-# Initialize FastAPI application
-app = FastAPI()
-
 # Initialize APIRouter for upload functionality
 router = APIRouter()
 
@@ -19,12 +15,24 @@ class FileType(str, Enum):
 
 # Google Cloud Storage configuration
 GCP_BUCKET_NAME = os.getenv("GCP_BUCKET_NAME")
-GCP_CREDENTIALS = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+GCP_CREDENTIALS = {
+    "type": os.getenv("GCP_TYPE"),
+    "project_id": os.getenv("GCP_PROJECT_ID"),
+    "private_key_id": os.getenv("GCP_PRIVATE_KEY_ID"),
+    "private_key": os.getenv("GCP_PRIVATE_KEY"),
+    "client_email": os.getenv("GCP_CLIENT_EMAIL"),
+    "client_id": os.getenv("GCP_CLIENT_ID"),
+    "auth_uri": os.getenv("GCP_AUTH_URI"),
+    "token_uri": os.getenv("GCP_TOKEN_URI"),
+    "auth_provider_x509_cert_url": os.getenv("GCP_AUTH_PROVIDER_X509_CERT_URL"),
+    "client_x509_cert_url": os.getenv("GCP_CLIENT_X509_CERT_URL"),
+    "universe_domain": os.getenv("GCP_UNIVERSE_DOMAIN")
+}
 
-if not GCP_BUCKET_NAME or not GCP_CREDENTIALS:
-    raise EnvironmentError("Environment variables for GCP_BUCKET_NAME and GOOGLE_APPLICATION_CREDENTIALS must be set.")
+if not GCP_BUCKET_NAME or not all(GCP_CREDENTIALS.values()):
+    raise EnvironmentError("Required GCP environment variables are not set.")
 
-storage_client = storage.Client()
+storage_client = storage.Client.from_service_account_info(GCP_CREDENTIALS)
 
 async def upload_to_gcp(file: UploadFile, file_type: FileType) -> str:
     try:
@@ -56,6 +64,3 @@ async def list_files():
         return {"files": file_urls}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to list files: {str(e)}")
-
-# Include the router in the FastAPI app
-app.include_router(router)

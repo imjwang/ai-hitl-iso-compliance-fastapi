@@ -3307,13 +3307,13 @@ six = ">=1.5"
 
 [[package]]
 name = "python-dotenv"
-version = "1.0.1"
+version = "0.19.0"
 description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.5"
 files = [
-    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
-    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
+    {file = "python-dotenv-0.19.0.tar.gz", hash = "sha256:f521bc2ac9a8e03c736f62911605c5d83970021e3fa95b37d769e2bbbe9b6172"},
+    {file = "python_dotenv-0.19.0-py2.py3-none-any.whl", hash = "sha256:aae25dc1ebe97c420f50b81fb0e5c949659af713f31fdb63c749ca68748f34b1"},
 ]
 
 [package.extras]
@@ -3707,6 +3707,38 @@ files = [
 
 [package.dependencies]
 requests = ">=2.0.1,<3.0.0"
+
+[[package]]
+name = "restack-ai"
+version = "0.0.21"
+description = "Restack AI library"
+optional = false
+python-versions = "<4.0,>=3.9"
+files = [
+    {file = "restack_ai-0.0.21-py3-none-any.whl", hash = "sha256:d50c8fa3d7bb7ce40d1fdf54a3c43d0d2bcb7b339794281d763442e96dc341cc"},
+    {file = "restack_ai-0.0.21.tar.gz", hash = "sha256:a1dc8b0a7fc1ca8ea850af6fe0d2bede9e9d3fd7e549a7252b7e478a5a8171af"},
+]
+
+[package.dependencies]
+pydantic = "2.9.2"
+python-dotenv = ">=0.19.0,<0.20.0"
+temporalio = "1.7.1"
+
+[[package]]
+name = "restack-google-gemini"
+version = "0.0.23"
+description = "Google Gemini for Restack AI"
+optional = false
+python-versions = "<4.0,>=3.9"
+files = [
+    {file = "restack_google_gemini-0.0.23-py3-none-any.whl", hash = "sha256:8d065b1ff05656bc32c800ff2d777527a48aa405fcca9a5b235ef880ac79af62"},
+    {file = "restack_google_gemini-0.0.23.tar.gz", hash = "sha256:1b917abc09bfe2250a09e92a669da2e339a2d2ce8069b29a656662613ede19b6"},
+]
+
+[package.dependencies]
+google-generativeai = ">=0.8.3,<0.9.0"
+pydantic = ">=2.9.2,<3.0.0"
+restack-ai = ">=0.0.21,<0.0.22"
 
 [[package]]
 name = "restack-sdk-cloud"
@@ -4257,6 +4289,30 @@ anyio = ">=3.4.0,<5"
 full = ["httpx (>=0.22.0)", "itsdangerous", "jinja2", "python-multipart (>=0.0.7)", "pyyaml"]
 
 [[package]]
+name = "temporalio"
+version = "1.7.1"
+description = "Temporal.io Python SDK"
+optional = false
+python-versions = "<4.0,>=3.8"
+files = [
+    {file = "temporalio-1.7.1-cp38-abi3-macosx_10_9_x86_64.whl", hash = "sha256:3aff503662255c3e2fa1e9c07b8a702bf8ff1f7d99370b4a6785699c45e75527"},
+    {file = "temporalio-1.7.1-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:0685c7ece5ba639a1af7eb39939726c70c99ffe6c212be3f01f213753923fd88"},
+    {file = "temporalio-1.7.1-cp38-abi3-manylinux2014_aarch64.manylinux_2_17_aarch64.whl", hash = "sha256:396e608c227a4f20cde7dfd3c7c8e2d8a9039cd76a40171668bb2b9a84d36bea"},
+    {file = "temporalio-1.7.1-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl", hash = "sha256:a38652e2556c384261f81f820b5f65f3b099767f18b9332628ec730cd31f0972"},
+    {file = "temporalio-1.7.1-cp38-abi3-win_amd64.whl", hash = "sha256:9b3aea332f6686a424467b026cbc8a1e93c550dfb6f7d983d392090de3d92847"},
+    {file = "temporalio-1.7.1.tar.gz", hash = "sha256:8250c391b33dd498dfd7d65a880c72b17e9b0e7cc04e7d444400be74c0fe4c85"},
+]
+
+[package.dependencies]
+protobuf = ">=3.20"
+types-protobuf = ">=3.20"
+typing-extensions = ">=4.2.0,<5.0.0"
+
+[package.extras]
+grpc = ["grpcio (>=1.59.0,<2.0.0)"]
+opentelemetry = ["opentelemetry-api (>=1.11.1,<2.0.0)", "opentelemetry-sdk (>=1.11.1,<2.0.0)"]
+
+[[package]]
 name = "tenacity"
 version = "9.0.0"
 description = "Retry code until it succeeds"
@@ -4539,6 +4595,17 @@ files = [
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
 test = ["argcomplete (>=3.0.3)", "mypy (>=1.7.0)", "pre-commit", "pytest (>=7.0,<8.2)", "pytest-mock", "pytest-mypy-testing"]
+
+[[package]]
+name = "types-protobuf"
+version = "5.28.3.20241030"
+description = "Typing stubs for protobuf"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "types-protobuf-5.28.3.20241030.tar.gz", hash = "sha256:f7e6b45845d75393fb41c0b3ce82c46d775f9771fae2097414a1dbfe5b51a988"},
+    {file = "types_protobuf-5.28.3.20241030-py3-none-any.whl", hash = "sha256:f3dae16adf342d4fb5bb3673cabb22549a6252e5dd66fc52d8310b1a39c64ba9"},
+]
 
 [[package]]
 name = "types-python-dateutil"
@@ -4959,4 +5026,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "36e4529b5930390480874572e22451d0cc26214d50086430585ad09024e2693e"
+content-hash = "e12c9f0b7ee617db835e529338177a53f7b7c76736067c184a2fe60351e8fe7d"
